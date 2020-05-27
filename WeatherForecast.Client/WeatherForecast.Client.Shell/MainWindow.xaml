@@ -1,0 +1,62 @@
+﻿<Window x:Class="WeatherForecast.Client.Shell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeatherForecast.Client.Shell"
+        mc:Ignorable="d"
+        Title="{Binding Title}" 
+        MaxHeight="450" MaxWidth="800" MinHeight="300" MinWidth="400"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Command="{Binding LoadCitiesCommand}" Content="Reload data" Margin="5"/>
+        <ItemsControl ItemsSource="{Binding Cities}" Name ="XOsList" Margin="5" Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="0" CornerRadius="8" Margin="1"  BorderBrush="Blue" >
+                        <Button Command="{Binding ElementName=MainGrid, Path=DataContext.SelectCityCommand}" 
+                                CommandParameter="{Binding .}" 
+                                Background="BlanchedAlmond"  
+                                Content="{Binding Name}"
+                                Style="{x:Null}"/>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label VerticalAlignment="Stretch" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock  Text="{Binding SelectedCity.Name}"  FontSize="20"/>
+                    <TextBlock  Text="  "  FontSize="20"/>
+                    <TextBlock  Text="{Binding WeatherReport.Date}"  FontSize="20"/>
+                </StackPanel>
+            </Label>
+            <Label Grid.Column="0" VerticalAlignment="Stretch" Background="Gainsboro"  Grid.Row="1" Grid.RowSpan="2">
+                <TextBlock  Text="{Binding WeatherReport.TemperatureFrom}"  FontSize="20"/>
+            </Label>
+
+            <Label Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Background="PaleGoldenrod"  VerticalAlignment="Stretch">
+                <TextBlock Text="{Binding WeatherReport.TemperatureTo}"  FontSize="20"/>
+            </Label>
+        </Grid>
+    </Grid>
+</Window>
