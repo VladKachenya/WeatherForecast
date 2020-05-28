@@ -26,7 +26,7 @@ namespace WeatherForecast.Grabber.Parser.Gismeteo
                 })
                 .GroupBy(x => x)
                 .Select(x => x.First())
-                .ToArray(); ;
+                .ToArray();
         }
     }
 }

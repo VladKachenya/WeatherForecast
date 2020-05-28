@@ -37,8 +37,6 @@ namespace WeatherForecast.Grabber.Parser.Gismeteo
             {
                 return new CityWeather();
             }
-
-
         }
     }
 }

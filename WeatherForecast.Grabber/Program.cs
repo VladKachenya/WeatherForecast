@@ -15,14 +15,18 @@ namespace WeatherForecast.Grabber
 
             var cityParserSettings = new ParserSettings { BaseUrl = url};
             cityParserSettings.Prefixes.Add(string.Empty);
+
             var cityParser = new ParserWorker<string[]>(new GismeteoCityParser(), cityParserSettings);
-            ParserWorker<CityWeather> weatherParser = null;
+            ParserWorker<CityWeather> weatherParser;
+
             List<string> cityPrefixes = new List<string>();
+
             cityParser.OnNewData += (sender, data) => cityPrefixes.AddRange(data);
             cityParser.OnCompleted += sender =>
             {
                 var weatherParserSettings = new ParserSettings { BaseUrl = url };
                 weatherParserSettings.Prefixes.AddRange(cityPrefixes.Select(pref => '/' + pref.Trim('/') + "/tomorrow/"));
+
                 weatherParser = new ParserWorker<CityWeather>(new GismeteoWeatherParser(), weatherParserSettings);
 
                 weatherParser.Start();

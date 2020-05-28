@@ -30,12 +30,12 @@ namespace WeatherForecast.Grabber.Parser
         public async void Start()
         {
             IsActive = true;
-            await Worker();
+            await Work();
             IsActive = false;
             OnCompleted?.Invoke(this);
         }
 
-        private async Task Worker()
+        private async Task Work()
         {
             foreach (var parserSettingsPrefix in _parserSettings.Prefixes)
             {
@@ -60,10 +60,7 @@ namespace WeatherForecast.Grabber.Parser
                 {
                     Console.WriteLine($"Не удалось получить данные по адресу {_parserSettings.BaseUrl}{parserSettingsPrefix}");
                 }
-
             }
         }
-
-
     }
 }
