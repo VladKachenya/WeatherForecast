@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -12,6 +13,8 @@ namespace WeatherForecast.DataAccess.Repositories
     {
         public async Task<Weather> GetByIdAsync(int id)
         {
+            if(!_validator.IsValidId(id)) throw new ArgumentException("Id must be more then 0");
+
             var res = await _queryExecutor.ExecuteAsync(async (db) => await db.QueryFirstAsync($"SELECT * FROM {TableNames.weather} WHERE id = '{id}'"));
             return new Weather() { Id = (int)res.id, CityId  = (int)res.city_id, Day = (DateTime)res.day, MaxTemperature = (int)res.max_temperature, MinTemperature = (int)res.min_temperature };
         }
@@ -23,6 +26,9 @@ namespace WeatherForecast.DataAccess.Repositories
 
         public async Task<Weather> AddAsync(Weather entity)
         {
+            if (!_validator.IsNotNull(entity)) throw new NullReferenceException();
+            if (!_validator.IsValidId(entity.CityId)) throw new ValidationException($"{nameof(entity.CityId)} must be more then 0");
+
             return await _queryExecutor.ExecuteAsync(async (db) =>
             {
                 var sqlQuery = $"INSERT INTO {TableNames.weather}(city_id, day, max_temperature, min_temperature) " +
@@ -35,6 +41,9 @@ namespace WeatherForecast.DataAccess.Repositories
 
         public async Task<Weather> AddOrUpdateAsync(Weather entity)
         {
+            if (!_validator.IsNotNull(entity)) throw new NullReferenceException();
+            if (!_validator.IsValidId(entity.CityId)) throw new ValidationException($"{nameof(entity.CityId)} must be more then 0");
+
             return await _queryExecutor.ExecuteAsync(async (db) =>
             {
                 var sqlQuery = $"SELECT id FROM {TableNames.weather} " +
@@ -55,6 +64,9 @@ namespace WeatherForecast.DataAccess.Repositories
 
         public async Task UpdateAsync(Weather entity)
         {
+            if (!_validator.IsNotNull(entity)) throw new NullReferenceException();
+            if (!_validator.IsValidId(entity.Id)) throw new ValidationException($"{nameof(entity.Id)} must be more then 0");
+
             await _queryExecutor.ExecuteAsync<Task>(async (db) =>
             {
                 var sqlQuery = $"UPDATE {TableNames.weather} " +
@@ -68,6 +80,9 @@ namespace WeatherForecast.DataAccess.Repositories
 
         public async Task DeleteAsync(Weather entity)
         {
+            if (!_validator.IsNotNull(entity)) throw new NullReferenceException();
+            if (!_validator.IsValidId(entity.Id)) throw new ValidationException($"{nameof(entity.Id)} must be more then 0");
+
             await _queryExecutor.ExecuteAsync<Task>(async (db) =>
             {
                 await db.ExecuteAsync($"DELETE FROM {TableNames.weather} WHERE Id = {entity.Id}");
@@ -76,6 +91,9 @@ namespace WeatherForecast.DataAccess.Repositories
 
         public async Task<Weather> GetCityWeather(City city, DateTime day)
         {
+            if (!_validator.IsNotNull(city)) throw new NullReferenceException();
+            if (!_validator.IsValidId(city.Id)) throw new ValidationException($"{nameof(city.Id)} must be more then 0");
+
             var res = await _queryExecutor.ExecuteAsync(async (db) => await db.QueryFirstAsync($"SELECT * FROM {TableNames.weather} WHERE city_id = {city.Id} AND day = '{day:yyyy-MM-dd}'"));
             return new Weather() { Id = (int)res.id, CityId = (int)res.city_id, Day = (DateTime)res.day, MaxTemperature = (int)res.max_temperature, MinTemperature = (int)res.min_temperature };
         }
