@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using WeatherForecast.Client.Logic.Interfaces;
 using WeatherForecast.Client.Logic.ViewModel;
 using WeatherForecast.Contracts;
+using WeatherForecast.Logger;
 
 namespace WeatherForecast.Client.Logic.Services
 {
@@ -14,17 +15,20 @@ namespace WeatherForecast.Client.Logic.Services
         private readonly Func<WeatherModel, WeatherReportViewModel> _weatherReportViewModelMapper;
         private readonly Func<CityViewModel, CityModel> _cityModelMapper;
         private readonly IWeatherForecastContract _weatherForecastContract;
+        private readonly ILog _logger;
 
         public WeatherDataProvider(
             Func<CityModel, CityViewModel> cityViewModelMapper,
             Func<WeatherModel, WeatherReportViewModel> weatherReportViewModelMapper,
             Func<CityViewModel, CityModel> cityModelMapper,
-            IWeatherForecastContract weatherForecastContract)
+            IWeatherForecastContract weatherForecastContract,
+            ILog logger)
         {
             _cityViewModelMapper = cityViewModelMapper;
             _weatherReportViewModelMapper = weatherReportViewModelMapper;
             _cityModelMapper = cityModelMapper;
             _weatherForecastContract = weatherForecastContract;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<CityViewModel>> GetCities()
@@ -35,7 +39,8 @@ namespace WeatherForecast.Client.Logic.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                //Place for logger
+                _logger.Error(e, "Server Error");
                 throw;
             }
         }
@@ -48,7 +53,8 @@ namespace WeatherForecast.Client.Logic.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                //Place for logger
+                _logger.Error(e, "Server Error");
                 throw;
             }
         }

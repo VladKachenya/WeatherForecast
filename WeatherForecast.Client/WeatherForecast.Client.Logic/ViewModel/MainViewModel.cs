@@ -28,6 +28,7 @@ namespace WeatherForecast.Client.Logic.ViewModel
         private CityViewModel _selectedCity;
         private WeatherReportViewModel _weatherReport;
         private bool _isLoadingEnabled = true;
+        private string _errorMessage;
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -56,6 +57,11 @@ namespace WeatherForecast.Client.Logic.ViewModel
                 {
                     _dispatcher.Invoke(() => Cities.Add(cityViewModel));
                 }
+                ErrorMessage = String.Empty;
+            }
+            catch (Exception e)
+            {
+                ErrorMessage = "Load cities data error";
             }
             finally
             {
@@ -78,16 +84,30 @@ namespace WeatherForecast.Client.Logic.ViewModel
             set => Set(ref _weatherReport, value);
         }
 
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set => Set(ref _errorMessage, value);
+        }
+
         public RelayCommand<CityViewModel> SelectCityCommand { get; }
         public RelayCommand LoadCitiesCommand{ get; }
 
         public async void OnSelectCity(CityViewModel cityViewModel)
         {
-            if (cityViewModel != null)
+            try
             {
-                SelectedCity = cityViewModel;
-                var weatherReport =  await _weatherDataProvider.GetWeatherReportForTomorrow(cityViewModel);
-                _dispatcher.Invoke(() => WeatherReport = weatherReport);
+                if (cityViewModel != null)
+                {
+                    SelectedCity = cityViewModel;
+                    var weatherReport = await _weatherDataProvider.GetWeatherReportForTomorrow(cityViewModel);
+                    _dispatcher.Invoke(() => WeatherReport = weatherReport);
+                }
+                ErrorMessage = String.Empty;
+            }
+            catch (Exception e)
+            {
+                ErrorMessage = "Load weather data error";
             }
         }
 

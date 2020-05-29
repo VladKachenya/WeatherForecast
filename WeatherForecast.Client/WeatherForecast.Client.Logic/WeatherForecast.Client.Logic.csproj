@@ -77,6 +77,10 @@
       <Project>{16ca6696-c94d-4b38-b840-ca57a4cda6cb}</Project>
       <Name>WeatherForecast.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\WeatherForecast.Logger\WeatherForecast.Logger.csproj">
+      <Project>{e7d36faf-4b5d-4575-9595-708885e45b95}</Project>
+      <Name>WeatherForecast.Logger</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

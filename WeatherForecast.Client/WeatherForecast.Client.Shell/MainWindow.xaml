@@ -37,7 +37,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -50,13 +50,14 @@
                     <TextBlock  Text="{Binding WeatherReport.Date}"  FontSize="20"/>
                 </StackPanel>
             </Label>
-            <Label Grid.Column="0" VerticalAlignment="Stretch" Background="Gainsboro"  Grid.Row="1" Grid.RowSpan="2">
+            <Label Grid.Column="0" VerticalAlignment="Stretch" Background="Gainsboro"  Grid.Row="1">
                 <TextBlock  Text="{Binding WeatherReport.TemperatureFrom}"  FontSize="20"/>
             </Label>
 
-            <Label Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Background="PaleGoldenrod"  VerticalAlignment="Stretch">
+            <Label Grid.Column="1" Grid.Row="1" Background="PaleGoldenrod"  VerticalAlignment="Stretch">
                 <TextBlock Text="{Binding WeatherReport.TemperatureTo}"  FontSize="20"/>
             </Label>
+            <TextBlock Foreground="Red" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2" Text="{Binding ErrorMessage}"/>
         </Grid>
     </Grid>
 </Window>

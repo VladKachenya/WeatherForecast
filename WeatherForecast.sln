@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.Client.Shel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.Client.Logic", "WeatherForecast.Client\WeatherForecast.Client.Logic\WeatherForecast.Client.Logic.csproj", "{F51F72A3-D551-43E3-A119-70231C639BC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecast.Logger", "WeatherForecast.Logger\WeatherForecast.Logger.csproj", "{E7D36FAF-4B5D-4575-9595-708885E45B95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{F51F72A3-D551-43E3-A119-70231C639BC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F51F72A3-D551-43E3-A119-70231C639BC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F51F72A3-D551-43E3-A119-70231C639BC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7D36FAF-4B5D-4575-9595-708885E45B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7D36FAF-4B5D-4575-9595-708885E45B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7D36FAF-4B5D-4575-9595-708885E45B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7D36FAF-4B5D-4575-9595-708885E45B95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

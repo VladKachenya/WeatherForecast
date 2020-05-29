@@ -4,14 +4,17 @@ using System.Threading.Tasks;
 using WeatherForecast.DataAccess.Entities;
 using WeatherForecast.DataAccess.Factories;
 using WeatherForecast.Grabber.Parser.Gismeteo;
+using WeatherForecast.Logger;
 
 namespace WeatherForecast.Grabber
 {
     public class WeatherDataWriter
     {
         private readonly RepositoryFactory _repositoryFactory;
+        private readonly ILog _logger;
         public WeatherDataWriter()
         {
+            _logger = (new LoggerFactory()).GetLogger();
             _repositoryFactory = new RepositoryFactory();
         }
         public async void Write(CityWeather weather)
@@ -32,11 +35,11 @@ namespace WeatherForecast.Grabber
                         MinTemperature = weather.MinTemperature,
                         Day = DateTime.Today.AddDays(1)
                     });
-                    Console.WriteLine($"Данные добавлены: {weather}");
+                    _logger.Info($"Data: {weather} added");
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Не удалось записать данные: {weather}");
+                   _logger.Error(e,$"Error with data writing: {weather}");
                 }
             }
         }

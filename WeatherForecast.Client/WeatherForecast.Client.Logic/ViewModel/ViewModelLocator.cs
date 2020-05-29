@@ -20,6 +20,7 @@ using WeatherForecast.Client.Logic.Services;
 using WeatherForecast.Contracts;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using WeatherForecast.Logger;
 
 namespace WeatherForecast.Client.Logic.ViewModel
 {
@@ -48,6 +49,8 @@ namespace WeatherForecast.Client.Logic.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register(() => (new LoggerFactory()).GetLogger());
+
             SimpleIoc.Default.Register<Func<CityModel, CityViewModel>>(() => (cm) => new CityViewModel(cm.Id) { Name = cm.Name });
             SimpleIoc.Default.Register<Func<CityViewModel, CityModel>>(() => (cvm) => new CityModel() { Name = cvm.Name, Id = cvm.GetCityId()});
 

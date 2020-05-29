@@ -36,10 +36,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -78,6 +82,10 @@
     <ProjectReference Include="..\WeatherForecast.DataAccess\WeatherForecast.DataAccess.csproj">
       <Project>{abce2b06-80f5-4c34-b3ee-ea0fe22b96b0}</Project>
       <Name>WeatherForecast.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WeatherForecast.Logger\WeatherForecast.Logger.csproj">
+      <Project>{e7d36faf-4b5d-4575-9595-708885e45b95}</Project>
+      <Name>WeatherForecast.Logger</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
