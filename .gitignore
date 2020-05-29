@@ -132,4 +132,4 @@ $RECYCLE.BIN/
 
 _NCrunch*
 
-InstallUtil.InstallLog
+WeatherForecast.Service/DebugInstaller/InstallUtil.InstallLog
